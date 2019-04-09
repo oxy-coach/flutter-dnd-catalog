@@ -9,10 +9,11 @@ import 'package:dnd_catalog/models/favorites.dart';
 class SpellWidget extends StatelessWidget {
 
   final Spell spell;
+  final bool showLevel;
 
   static const fontSize = 16.0;
 
-  SpellWidget(this.spell);
+  SpellWidget(this.spell, [this.showLevel = false]);
 
   /// Главный контейнер с заклинанием
   Widget _buildTiles(Spell spell) {
@@ -20,7 +21,8 @@ class SpellWidget extends StatelessWidget {
     var titleRow = <Widget>[
       Expanded(child: Text(spell.name))
     ];
-
+    
+    if (showLevel) titleRow..add(_renderTitleFlags(spell.levelStrShort, Colors.green[300]));
     if (spell.hasConcentration == 1) titleRow..add(_renderTitleFlags('К', Colors.blue[500]));
     if (spell.isRitual == 1) titleRow..add(_renderTitleFlags('Р', Colors.purple[300]));
 

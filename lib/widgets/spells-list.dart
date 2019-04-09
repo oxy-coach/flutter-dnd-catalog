@@ -7,8 +7,9 @@ class SpellsListWidget extends StatelessWidget {
 
   final Future future;
   final bool groupByLevel;
+  final bool showLevel;
 
-  SpellsListWidget(this.future, this.groupByLevel);
+  SpellsListWidget(this.future, this.groupByLevel, [this.showLevel = false]);
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +48,7 @@ class SpellsListWidget extends StatelessWidget {
     }
 
     return ListView.builder(
-      itemBuilder: (BuildContext context, int index) => SpellWidget(list[index]),
+      itemBuilder: (BuildContext context, int index) => SpellWidget(list[index], showLevel),
       itemCount: list.length,
     );
   }
@@ -60,7 +61,7 @@ class SpellsListWidget extends StatelessWidget {
       children: List<Widget>.from(item['spells'].map((spell) {
         return Container(
           padding: EdgeInsets.only(left: 10.0),
-          child: SpellWidget(spell)
+          child: SpellWidget(spell, showLevel)
         );
       }).toList()),
     );
