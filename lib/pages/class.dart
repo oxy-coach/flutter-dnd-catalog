@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:dnd_catalog/page.dart';
 import 'package:dnd_catalog/models/db.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:dnd_catalog/helper.dart';
 import 'package:dnd_catalog/widgets/spells-list.dart';
 
 class ClassesPage extends StatefulWidget {
@@ -22,13 +21,11 @@ class _ClassesPageState extends State<ClassesPage> {
     return DndCatalogPage(
       title: "Классы",
       widget: new FutureBuilder(
-        //future: mainReference.child('class').once(),
         future: db.then((db) => db.query('class')),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null) {
               
-              //_list = snapshot.data.value.map((data) => Entry(data["name"], <Entry>[ Entry(data["spellsInfo"]) ])).toList();
               _list = snapshot.data.map((data) => Class.fromMap(data)).toList();
 
               return ListView.builder(
